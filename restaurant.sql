@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Apr 28, 2025 at 12:10 AM
+-- Generation Time: Sep 27, 2025 at 03:13 AM
 -- Server version: 5.7.24
 -- PHP Version: 8.3.1
 
@@ -35,14 +35,6 @@ CREATE TABLE `customer_orders` (
   `total_price` decimal(10,2) DEFAULT NULL,
   `order_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `customer_orders`
---
-
-INSERT INTO `customer_orders` (`order_id`, `user_id`, `first_name`, `last_name`, `total_price`, `order_date`) VALUES
-(3, 6, 'Jakob', 'Mifflin', '45.00', '2025-04-27 23:33:32'),
-(4, 6, 'Jakob', 'Mifflin', '12.00', '2025-04-27 23:50:58');
 
 -- --------------------------------------------------------
 
@@ -86,8 +78,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `password`) VALUES
-(5, 'ShakenCarpet', '$2y$10$D7dAGEkDTaXgDB42Z2spu.O62QxCN6Lw5YTqPi5QBVvU5Bzth8vXq'),
-(6, 'JeremyCarpet', '$2y$10$NJc0vdsDaWUPdFg4LSse1O28MqK2Rgl5O5NMWg0ok1M0Sq40fBt56');
+(7, 'ShakenCarpet', '$2y$10$whhQwXqcy20lUQhsURwMxeomU2dZvEJcpL8NIOLn91ZtvNKKSNJni');
 
 --
 -- Indexes for dumped tables
@@ -98,7 +89,7 @@ INSERT INTO `users` (`id`, `name`, `password`) VALUES
 --
 ALTER TABLE `customer_orders`
   ADD PRIMARY KEY (`order_id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `fk_customer_orders_user` (`user_id`);
 
 --
 -- Indexes for table `pies`
@@ -121,7 +112,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `customer_orders`
 --
 ALTER TABLE `customer_orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `pies`
@@ -143,7 +134,7 @@ ALTER TABLE `users`
 -- Constraints for table `customer_orders`
 --
 ALTER TABLE `customer_orders`
-  ADD CONSTRAINT `customer_orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `fk_customer_orders_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
